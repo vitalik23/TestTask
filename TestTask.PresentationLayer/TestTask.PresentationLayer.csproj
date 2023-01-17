@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\TestTask.BusinessLayer\TestTask.BusinessLayer.csproj" />
   </ItemGroup>
 
 </Project>
