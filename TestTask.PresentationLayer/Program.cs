@@ -1,11 +1,12 @@
+using TestTask.Shared.Options;
+using TestTask.Shared.Constants;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var services = builder.Services;
-
 TestTask.BusinessLayer.StartupExtention.BusinessLogicInitializer(services, builder.Configuration);
 
-// Add services to the container.
+services.Configure<JwtConnectionOptions>(builder.Configuration.GetSection(Constants.AppSettings.JwtConfiguration));
 
 services.AddControllers();
 
@@ -23,6 +24,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
