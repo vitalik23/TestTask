@@ -1,6 +1,6 @@
 ﻿namespace TestTask.BusinessLayer
 {
-    public class Class1
+    public class StartupExtension
     {
 
     }
