@@ -18,7 +18,7 @@ public class ApplicationContext : IdentityDbContext<User>
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<Customer>()
-            .HasIndex(p => p.Name)
+            .HasIndex(p => p.Email)
             .IsUnique();
     }
 }

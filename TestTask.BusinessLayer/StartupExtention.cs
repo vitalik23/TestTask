@@ -19,11 +19,13 @@ public static class StartupExtention
         DataAccessLayer.StartupExtention.DataAccessInitializer(service, configuration);
 
         service.AddTransient<IAccountService, AccountService>();
+        service.AddTransient<ICustomerService, CustomerService>();
         service.AddTransient<JwtProvider>();
 
         var mapperConfig = new MapperConfiguration(config =>
         {
             config.AddProfile(new UserProfile());
+            config.AddProfile(new CustomerProfile());
         });
 
         IMapper mapper = mapperConfig.CreateMapper();
