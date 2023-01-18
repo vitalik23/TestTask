@@ -22,8 +22,8 @@ public class CustomerController : ControllerBase
     [Route("create")]
     public async Task<IActionResult> CreateAsync(CreateCustomerModel model)
     {
-        await _customerService.CreateAsync(model);
-        return Ok();
+        var result = await _customerService.CreateAsync(model);
+        return Ok(result);
     }
 
     [HttpPost]
@@ -47,6 +47,14 @@ public class CustomerController : ControllerBase
     public async Task<IActionResult> GetByIdAsync(string id)
     {
         var result = await _customerService.GetCustomerAsync(id);
+        return Ok(result);
+    }
+
+    [HttpPost]
+    [Route("get-all")]
+    public async Task<IActionResult> GetAllAsync()
+    {
+        var result = await _customerService.GetCustomersAsync();
         return Ok(result);
     }
 }

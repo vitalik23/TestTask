@@ -4,7 +4,7 @@ namespace TestTask.BusinessLayer.Services.Interfaces;
 
 public interface ICustomerService
 {
-    Task CreateAsync(CreateCustomerModel model);
+    Task<GetCustomerModel> CreateAsync(CreateCustomerModel model);
     Task<GetCustomerModel> UpdateAsync(UpdateCustomerModel model);
     Task DeleteAsync(string id);
     Task<GetCustomerModel> GetCustomerAsync(string id);

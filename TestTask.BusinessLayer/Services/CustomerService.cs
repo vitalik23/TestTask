@@ -21,7 +21,7 @@ public class CustomerService : ICustomerService
         _mapper = mapper;
     }
 
-    public async Task CreateAsync(CreateCustomerModel model)
+    public async Task<GetCustomerModel> CreateAsync(CreateCustomerModel model)
     {
         var customer = await _customerRepository.GetCustomerByNameAsync(model.Name);
 
@@ -32,6 +32,8 @@ public class CustomerService : ICustomerService
 
         var entity = _mapper.Map<Customer>(model);
         await _customerRepository.CreateAsync(entity);
+
+        return _mapper.Map<GetCustomerModel>(entity);
     }
 
     public async Task DeleteAsync(string id)
@@ -52,9 +54,10 @@ public class CustomerService : ICustomerService
         return _mapper.Map<GetCustomerModel>(result);
     }
 
-    public Task<List<GetCustomerModel>> GetCustomersAsync()
+    public async Task<List<GetCustomerModel>> GetCustomersAsync()
     {
-        return null;
+        var result = await _customerRepository.GetAllAsync();
+        return _mapper.Map<List<GetCustomerModel>>(result); ;
     }
 
     public async Task<GetCustomerModel> UpdateAsync(UpdateCustomerModel model)
