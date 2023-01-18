@@ -1,1 +1,52 @@
-<p>sign-up works!</p>
+<form #form="ngForm">
+
+    <div>
+        <input 
+            type="text"
+            name="userName"
+            #userName="ngModel"
+            [(ngModel)]="signUpModel.userName"
+            placeholder="User name">
+    </div>
+
+    <div>
+        <input 
+            type="tell"
+            name="phoneNumber"
+            #phoneNumber="ngModel"
+            [(ngModel)]="signUpModel.phoneNumber"
+            placeholder="Phone number">
+    </div>
+
+    <div>
+        <input 
+            type="email"
+            name="email"
+            #email="ngModel"
+            [(ngModel)]="signUpModel.email"
+            placeholder="email">
+    </div>
+
+    <div>
+        <input 
+            type="password"
+            name="password"
+            #password="ngModel"
+            [(ngModel)]="signUpModel.password"
+            placeholder="Password">
+    </div>
+
+    <div>
+        <input 
+            type="password"
+            name="confirmPassword"
+            #confirmPassword="ngModel"
+            [(ngModel)]="signUpModel.confirmPassword"
+            placeholder="Confirm password">
+    </div>
+
+    <div>
+        <button (click)="signUp()">Sign up</button>
+    </div>
+
+</form>

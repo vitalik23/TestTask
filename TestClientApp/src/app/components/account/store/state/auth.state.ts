@@ -4,7 +4,7 @@ import { CookieService } from "ngx-cookie-service";
 import { tap } from "rxjs";
 import { AccountService } from "src/app/services/account.service";
 import { ConstAccount } from "src/app/shared/constants/account.constant";
-import { SignIn, SignOut } from "../actions/auth.actions";
+import { SignIn, SignOut, SignUp } from "../actions/auth.actions";
 
 export class AuthStateModel {
 }
@@ -32,6 +32,15 @@ export class AuthState {
                 this.cookieService.set(ConstAccount.ACCESS_TOKEN, result.accessToken, { path: '/' });
             }
             
+        ));
+    }
+
+    @Action(SignUp)
+    signUp(_: StateContext<AuthStateModel>, { payload }: SignUp) {
+        return this.accountService.signup(payload).pipe(
+            tap((result) => {   
+                console.log(result);
+            }
         ));
     }
 

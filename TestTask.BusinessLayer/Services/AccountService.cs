@@ -34,11 +34,6 @@ public class AccountService : IAccountService
             throw new ServerException("User not found!", HttpStatusCode.NotFound);
         }
 
-        if (!user.EmailConfirmed)
-        {
-            throw new ServerException("User not confirmed!", HttpStatusCode.BadRequest);
-        }
-
         if (!await _userManager.CheckPasswordAsync(user, model.Password))
         {
             throw new ServerException("Wrong password!", HttpStatusCode.BadRequest);
