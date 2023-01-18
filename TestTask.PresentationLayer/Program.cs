@@ -11,6 +11,8 @@ services.Configure<JwtConnectionOptions>(builder.Configuration.GetSection(Consta
 services.AddControllers();
 
 services.AddEndpointsApiExplorer();
+
+services.AddCors();
 services.AddSwaggerGen();
 
 var app = builder.Build();
@@ -23,6 +25,14 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(builder =>
+{
+    builder.WithOrigins("http://localhost:4200")
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials();
+});
 
 app.UseAuthentication();
 app.UseAuthorization();
