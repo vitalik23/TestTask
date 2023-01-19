@@ -1,0 +1,36 @@
+.main-container{
+    .header-container{
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid gray;
+
+        .logo{
+            background: #845EC2;
+            color: #ffffff;
+            font-size: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 30px;
+            border-radius: 15px;
+        }
+
+        .auth-button{
+            display: flex;
+            gap: 15px;
+            margin-bottom: 10px;
+
+            .sign-in, 
+            .sign-up{
+                background: #00C2A8;
+                color: #ffffff;
+                width: 80px;
+                border: none;
+                height: 30px;
+                border-radius: 20px;
+            }
+        }
+    }
+}

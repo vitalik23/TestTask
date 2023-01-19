@@ -107,5 +107,8 @@
       }
     }
   },
-  "defaultProject": "TestClientApp"
+  "defaultProject": "TestClientApp",
+  "cli": {
+    "analytics": false
+  }
 }

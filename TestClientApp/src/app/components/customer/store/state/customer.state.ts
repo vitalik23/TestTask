@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Action, State, StateContext } from "@ngxs/store";
+import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { tap } from "rxjs";
 import { GetCustomerModel } from "src/app/models/customers/get.model";
 import { CustomerService } from "src/app/services/customer.service";
@@ -12,7 +12,7 @@ export class CustomerStateModel {
     totalItems: number;
 }
 
-State<CustomerStateModel>({
+@State<CustomerStateModel>({
     name: 'customer',
     defaults: {
         data: [],
@@ -23,11 +23,16 @@ State<CustomerStateModel>({
 })
 
 @Injectable()
-export class AuthState {
+export class CustomerState {
     constructor(
         private customerService: CustomerService,
     ) {
 
+    }
+
+    @Selector()
+    static getData(state: CustomerStateModel) {
+        return state.data;
     }
 
     @Action(CreateCustomer)
@@ -95,10 +100,14 @@ export class AuthState {
                 console.log(result);
                 const state = getState();
                 var customers = state.data;
-                
+
+                if(!customers){
+                    customers = [];
+                }
+
                 setState({
                     ...state,
-                    data: customers.concat(result),
+                    data: customers?.concat(result),
                     // pageNumber: result.pageNumber,
                 });
             }

@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+input{
+    width: calc(100% - 5px);
+    height: 50px;
+    border: 1px solid #D6E5EB;
+    border-radius: 5px;
+    padding-left: 5px;
+
+    :focus{
+        border: none;
+        outline: none;
+    }
+}

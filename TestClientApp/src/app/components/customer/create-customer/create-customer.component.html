@@ -1,0 +1,34 @@
+<div class="create-customer-container">
+    <div>Create customer</div>
+
+    <div>
+        <form #form="ngForm">
+
+            <div>
+                <input type="text" name="name" #name="ngModel" [(ngModel)]="createModel.name" placeholder="Name">
+            </div>
+
+            <div>
+                <input type="email" name="email" #email="ngModel" [(ngModel)]="createModel.email" placeholder="Email">
+            </div>
+
+            <div>
+                <input type="tell" name="phone" #phone="ngModel" [(ngModel)]="createModel.phone" placeholder="Phone">
+            </div>
+
+            <div>
+                <input type="text" name="companyName" #companyName="ngModel" [(ngModel)]="createModel.companyName"
+                    placeholder="Company name">
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <button (click)="create()">Create</button>
+        <button (click)="close()">Close</button>
+    </div>
+</div>
+
+<style>
+
+</style>

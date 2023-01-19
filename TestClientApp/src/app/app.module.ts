@@ -11,6 +11,8 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { ErrorInterceptorService } from './interceptors/error.interceptor';
 import { AuthInterceptorService } from './interceptors/auth.interceptor';
 import { AuthGuardService } from './guard/auth-guard.service';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { AuthState } from './components/account/store/state/auth.state';
 
 export function tokenGetter() {
   return localStorage.getItem(ConstAccount.ACCESS_TOKEN);
@@ -24,13 +26,14 @@ export function tokenGetter() {
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NgxsModule.forRoot([]),
+    NgxsModule.forRoot([AuthState]),
     JwtModule.forRoot({
       config: {
           tokenGetter: tokenGetter,
           allowedDomains: [environment.apiUrl]
       }
-  }),
+    }),
+    BrowserAnimationsModule
   ],
   providers: [
     {

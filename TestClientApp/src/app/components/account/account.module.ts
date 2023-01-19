@@ -7,6 +7,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxsModule } from '@ngxs/store';
 import { AuthState } from './store/state/auth.state';
+import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { AuthState } from './store/state/auth.state';
     FormsModule,
     ReactiveFormsModule,
     NgxsModule.forFeature([AuthState]),
+    MatInputModule
   ]
 })
 export class AccountModule { }

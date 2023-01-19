@@ -4,7 +4,7 @@ import { AuthGuardService } from 'src/app/guard/auth-guard.service';
 import { GetListComponent } from './get-list/get-list.component';
 
 const routes: Routes = [
-  { path: '/', component: GetListComponent, canActivate: [AuthGuardService] }
+  { path: 'get-list', component: GetListComponent, canActivate: [AuthGuardService] }
 ];
 
 @NgModule({

@@ -1,0 +1,46 @@
+<div>
+    <form #form="ngForm">
+
+        <div>
+            <input 
+                type="text"
+                name="name"
+                #name="ngModel"
+                value="{{updateModel.name}}"
+                [(ngModel)]="updateModel.name"
+                placeholder="Name">
+        </div>
+    
+        <div>
+            <input 
+                type="email"
+                name="email"
+                #email="ngModel"
+                [(ngModel)]="updateModel.email"
+                placeholder="Email">
+        </div>
+
+        <div>
+            <input 
+                type="tell"
+                name="phone"
+                #phone="ngModel"
+                [(ngModel)]="updateModel.phone"
+                placeholder="Phone">
+        </div>
+
+        <div>
+            <input 
+                type="text"
+                name="companyName"
+                #companyName="ngModel"
+                [(ngModel)]="updateModel.companyName"
+                placeholder="Company name">
+        </div>
+    
+        <div>
+            <button (click)="update()">update</button>
+        </div>
+    
+    </form>
+</div>
