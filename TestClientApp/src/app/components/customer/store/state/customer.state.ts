@@ -107,7 +107,7 @@ export class CustomerState {
 
                 setState({
                     ...state,
-                    data: customers?.concat(result.data),
+                    data: result.data,
                     // pageNumber: result.pageNumber,
                 });
             }

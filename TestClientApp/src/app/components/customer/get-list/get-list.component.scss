@@ -10,6 +10,15 @@
       table {
         width: 100%;
 
+        th{
+          .filter-field {
+            input{
+              height: 20px;
+              width: calc(100% - 20px);
+            }
+          }
+        }
+
         .actions{
 
           display: flex;

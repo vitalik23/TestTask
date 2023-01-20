@@ -34,6 +34,7 @@ export class GetListComponent implements OnInit {
   ) {
 
     this.getAllModel = new FilteredAndPagedCustomerModel();
+    this.filter = new FilterCustomerModel();
   }
 
   ngOnInit(): void {
@@ -58,6 +59,18 @@ export class GetListComponent implements OnInit {
     this.dialog.open(UpdateCustomerComponent, {
       data: customer,
     });
+  }
+
+  public filtration(event: any, fieldName: string){
+    console.log(event.value);
+
+    var val = event.value;
+
+    if(fieldName == "name"){
+      this.getAllModel.filters.name = val;
+    }
+
+    this.store.dispatch(new GetAllCustomer(this.getAllModel));
   }
 
 }

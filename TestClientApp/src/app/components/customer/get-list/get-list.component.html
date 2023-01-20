@@ -10,25 +10,45 @@
 
         <!-- Position Column -->
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <th mat-header-cell *matHeaderCellDef> 
+            <div>Name</div>
+            <div class="filter-field">
+              <input type="text" (input)="filtration($event.target, 'name')"/>
+            </div>
+          </th>
           <td mat-cell *matCellDef="let element"> {{element.name}} </td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="email">
-          <th mat-header-cell *matHeaderCellDef> Email </th>
+          <th mat-header-cell *matHeaderCellDef> 
+            <div>Email</div>
+            <div class="filter-field">
+              <input type="email"/>
+            </div>
+          </th>
           <td mat-cell *matCellDef="let element"> {{element.email}} </td>
         </ng-container>
 
         <!-- Weight Column -->
         <ng-container matColumnDef="phone">
-          <th mat-header-cell *matHeaderCellDef> Phone </th>
+          <th mat-header-cell *matHeaderCellDef> 
+            <div>Phone</div>
+            <div class="filter-field">
+              <input type="tell"/>
+            </div>
+          </th>
           <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
         </ng-container>
 
         <!-- Symbol Column -->
         <ng-container matColumnDef="companyName">
-          <th mat-header-cell *matHeaderCellDef> Company name </th>
+          <th mat-header-cell *matHeaderCellDef> 
+            <div>Company name</div>
+            <div class="filter-field">
+              <input type="text"/>
+            </div>
+          </th>
           <td mat-cell *matCellDef="let element"> {{element.companyName}} </td>
         </ng-container>
 
