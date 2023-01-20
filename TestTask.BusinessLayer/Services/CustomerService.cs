@@ -4,6 +4,8 @@ using TestTask.BusinessLayer.Services.Interfaces;
 using TestTask.DataAccessLayer.Entities;
 using TestTask.DataAccessLayer.Repositories.Interfaces;
 using TestTask.Shared.Exceptions;
+using TestTask.DataAccessLayer.Models.Customers;
+using TestTask.DataAccessLayer.Models.Pagination;
 
 namespace TestTask.BusinessLayer.Services;
 
@@ -54,10 +56,21 @@ public class CustomerService : ICustomerService
         return _mapper.Map<GetCustomerModel>(result);
     }
 
-    public async Task<List<GetCustomerModel>> GetCustomersAsync()
+    public async Task<PagedResponse<GetCustomerModel>> GetCustomersAsync(FilteredAndPagedCustomers model)
     {
-        var result = await _customerRepository.GetAllAsync();
-        return _mapper.Map<List<GetCustomerModel>>(result); ;
+        var result = await _customerRepository.GetFilteredAndPagedAsync(model.Filters, model.Pagination);
+
+        var countCustomers = await _customerRepository.CountAsync();
+
+        var customers = _mapper.Map<List<GetCustomerModel>>(result.Data);
+
+        return new PagedResponse<GetCustomerModel> 
+        {
+            Data = customers,
+            PageNumber = model.Pagination.PageNumber,
+            PageSize = model.Pagination.PageSize,
+            TotalItems = countCustomers
+        };
     }
 
     public async Task<GetCustomerModel> UpdateAsync(UpdateCustomerModel model)

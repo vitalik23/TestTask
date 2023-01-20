@@ -5,7 +5,7 @@ using TestTask.BusinessLayer.Services.Interfaces;
 
 namespace TestTask.PresentationLayer.Controllers;
 
-[Authorize]
+//[Authorize]
 [Route("api/[controller]")]
 [ApiController]
 public class CustomerController : ControllerBase
@@ -52,9 +52,9 @@ public class CustomerController : ControllerBase
 
     [HttpPost]
     [Route("get-all")]
-    public async Task<IActionResult> GetAllAsync()
+    public async Task<IActionResult> GetAllAsync(FilteredAndPagedCustomers model)
     {
-        var result = await _customerService.GetCustomersAsync();
+        var result = await _customerService.GetCustomersAsync(model);
         return Ok(result);
     }
 }

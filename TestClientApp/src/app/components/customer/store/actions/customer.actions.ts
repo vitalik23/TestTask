@@ -1,4 +1,5 @@
 import { CreateCustomerModel } from "src/app/models/customers/create.model";
+import { FilteredAndPagedCustomerModel } from "src/app/models/customers/filtered-and-paged.model";
 import { UpdateCustomerModel } from "src/app/models/customers/update.model";
 
 export class CreateCustomer{
@@ -23,4 +24,5 @@ export class GetCustomer{
 
 export class GetAllCustomer{
     static readonly type = '[Customer] GetAll';
+    constructor(public payload: FilteredAndPagedCustomerModel){}
 }

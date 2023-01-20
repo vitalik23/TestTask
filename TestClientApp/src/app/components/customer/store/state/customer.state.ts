@@ -94,8 +94,8 @@ export class CustomerState {
     }
 
     @Action(GetAllCustomer)
-    getAll({ getState, setState }: StateContext<CustomerStateModel>) {
-        return this.customerService.getAll().pipe(
+    getAll({ getState, setState }: StateContext<CustomerStateModel>, { payload }: GetAllCustomer) {
+        return this.customerService.getAll(payload).pipe(
             tap((result) => {   
                 console.log(result);
                 const state = getState();
@@ -107,7 +107,7 @@ export class CustomerState {
 
                 setState({
                     ...state,
-                    data: customers?.concat(result),
+                    data: customers?.concat(result.data),
                     // pageNumber: result.pageNumber,
                 });
             }

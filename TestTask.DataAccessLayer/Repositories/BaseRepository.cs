@@ -37,4 +37,9 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
         _context.Entry(item).State = EntityState.Modified;
         await _context.SaveChangesAsync();
     }
+
+    public async Task<int> CountAsync()
+    {
+        return await _dbSet.CountAsync();
+    }
 }

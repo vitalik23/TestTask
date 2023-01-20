@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { GetCustomerModel } from '../models/customers/get.model';
 import { environment } from 'src/environments/environment';
 import { UpdateCustomerModel } from '../models/customers/update.model';
+import { FilteredAndPagedCustomerModel } from '../models/customers/filtered-and-paged.model';
+import { PagedResponse } from '../models/pagination/page-response.models';
 
 
 @Injectable({
@@ -32,7 +34,7 @@ export class CustomerService {
         return this.http.get<GetCustomerModel>(`${environment.apiUrl}/customer/get/${id}`);
     }
 
-    public getAll(): Observable<Array<GetCustomerModel>>{
-        return this.http.post<Array<GetCustomerModel>>(`${environment.apiUrl}/customer/get-all`, null);
+    public getAll(model: FilteredAndPagedCustomerModel): Observable<PagedResponse<GetCustomerModel>>{
+        return this.http.post<PagedResponse<GetCustomerModel>>(`${environment.apiUrl}/customer/get-all`, model);
     }
 }
