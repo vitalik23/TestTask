@@ -7,6 +7,7 @@
 
   .example-container {
     .example-table-container {
+      overflow-y: auto;
       table {
         width: 100%;
 

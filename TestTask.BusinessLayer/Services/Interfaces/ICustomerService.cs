@@ -10,4 +10,5 @@ public interface ICustomerService
     Task DeleteAsync(string id);
     Task<GetCustomerModel> GetCustomerAsync(string id);
     Task<PagedResponse<GetCustomerModel>> GetCustomersAsync(FilteredAndPagedCustomers model);
+    Task<List<GetCustomerModel>> GetAllAsync();
 }

@@ -1,46 +1,63 @@
-<div>
-    <form #form="ngForm">
+<div class="update-container">
+    <form [formGroup]="updateForm">
 
-        <div>
-            <input 
-                type="text"
-                name="name"
-                #name="ngModel"
-                value="{{updateModel.name}}"
-                [(ngModel)]="updateModel.name"
-                placeholder="Name">
-        </div>
-    
-        <div>
-            <input 
-                type="email"
-                name="email"
-                #email="ngModel"
-                [(ngModel)]="updateModel.email"
-                placeholder="Email">
+        <div class="form-item">
+            <input type="text" formControlName="name" placeholder="Name">
+
+            <div *ngIf="updateForm.get('name')?.invalid && (updateForm.get('name')?.dirty || updateForm.get('name')?.touched)"
+                class="form-danger">
+                <div *ngIf="updateForm.get('name')?.errors?.['required']">
+                    Name is required.
+                </div>
+
+                <div *ngIf="updateForm.get('name')?.errors?.['duplicate']">
+                    Name already exists.
+                </div>
+            </div>
         </div>
 
-        <div>
-            <input 
-                type="tell"
-                name="phone"
-                #phone="ngModel"
-                [(ngModel)]="updateModel.phone"
-                placeholder="Phone">
+        <div class="form-item">
+            <input type="email" formControlName="email" placeholder="Email">
+            <div *ngIf="updateForm.get('email')?.invalid && (updateForm.get('email')?.dirty || updateForm.get('email')?.touched)"
+                class="form-danger">
+                <div *ngIf="updateForm.get('email')?.errors?.['required']">
+                    Email is required.
+                </div>
+
+                <div *ngIf="updateForm.get('email')?.errors?.['email']">
+                    Email is invalid.
+                </div>
+            </div>
         </div>
 
-        <div>
-            <input 
-                type="text"
-                name="companyName"
-                #companyName="ngModel"
-                [(ngModel)]="updateModel.companyName"
-                placeholder="Company name">
+        <div class="form-item">
+            <input type="tell" formControlName="phone" placeholder="Phone">
+
+            <div *ngIf="updateForm.get('phone')?.invalid && (updateForm.get('phone')?.dirty || updateForm.get('phone')?.touched)"
+                class="form-danger">
+                <div *ngIf="updateForm.get('phone')?.errors?.['required']">
+                    Phone is required.
+                </div>
+            </div>
         </div>
-    
-        <div>
-            <button (click)="update()">update</button>
+
+        <div class="form-item">
+            <input type="text" formControlName="companyName" placeholder="Company name">
+            <div *ngIf="updateForm.get('companyName')?.invalid && (updateForm.get('companyName')?.dirty || updateForm.get('companyName')?.touched)"
+                class="form-danger">
+                <div *ngIf="updateForm.get('companyName')?.errors?.['required']">
+                    Company name is required.
+                </div>
+
+                <div *ngIf="updateForm.get('companyName')?.invalid">
+                    Length is not allowed.
+                </div>
+            </div>
         </div>
-    
+
+        <div class="update-button">
+            <button (click)="update()">Update</button>
+        </div>
+
     </form>
 </div>

@@ -7,8 +7,8 @@ import { FilteredAndPagedCustomerModel } from 'src/app/models/customers/filtered
 import { GetCustomerModel } from 'src/app/models/customers/get.model';
 import { PaginationFilterModel } from 'src/app/models/pagination/pagination-filter.model';
 import { CreateCustomerComponent } from '../create-customer/create-customer.component';
-import { DeleteCustomer, GetAllCustomer, GetCustomer } from '../store/actions/customer.actions';
-import { CustomerState } from '../store/state/customer.state';
+import { DeleteCustomer, GetAllCustomers, GetCustomer } from '../store/actions/customer.actions';
+import { CustomersState } from '../store/state/customers.state';
 import { UpdateCustomerComponent } from '../update-customer/update-customer.component';
 
 @Component({
@@ -18,11 +18,10 @@ import { UpdateCustomerComponent } from '../update-customer/update-customer.comp
 })
 export class GetListComponent implements OnInit {
 
-  @Select(CustomerState.getData) customerListObservable: Observable<GetCustomerModel[]>;
+  @Select(CustomersState.getData) customerListObservable: Observable<GetCustomerModel[]>;
 
   customers: Array<GetCustomerModel>;
   displayedColumns: string[] = ['name', 'email', 'phone', 'companyName', 'actions'];
-
 
   filter: FilterCustomerModel;
 
@@ -39,7 +38,7 @@ export class GetListComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.store.dispatch(new GetAllCustomer(this.getAllModel));
+    this.store.dispatch(new GetAllCustomers(this.getAllModel));
 
     this.customerListObservable.pipe().subscribe((data) => {
       console.log(data);
@@ -70,7 +69,7 @@ export class GetListComponent implements OnInit {
       this.getAllModel.filters.name = val;
     }
 
-    this.store.dispatch(new GetAllCustomer(this.getAllModel));
+    this.store.dispatch(new GetAllCustomers(this.getAllModel));
   }
 
 }

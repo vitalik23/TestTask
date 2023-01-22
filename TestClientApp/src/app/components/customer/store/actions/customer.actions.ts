@@ -22,7 +22,11 @@ export class GetCustomer{
     constructor(public payload: string){}
 }
 
-export class GetAllCustomer{
+export class GetAllCustomers{
     static readonly type = '[Customer] GetAll';
     constructor(public payload: FilteredAndPagedCustomerModel){}
+}
+
+export class GetAllCustomerWithoutFilters{
+    static readonly type = '[Customer] GetAllCustomerWithoutFilters';
 }

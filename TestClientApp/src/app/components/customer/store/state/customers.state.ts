@@ -1,19 +1,20 @@
-import { Injectable } from "@angular/core";
+import { Injectable, Injector, NgZone } from "@angular/core";
+import { Router } from "@angular/router";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { tap } from "rxjs";
 import { GetCustomerModel } from "src/app/models/customers/get.model";
 import { CustomerService } from "src/app/services/customer.service";
-import { CreateCustomer, DeleteCustomer, GetAllCustomer, GetCustomer, UpdateCustomer } from "../actions/customer.actions";
+import { CreateCustomer, DeleteCustomer, GetAllCustomers, GetCustomer, UpdateCustomer } from "../actions/customer.actions";
 
-export class CustomerStateModel {
+export class CustomersStateModel {
     data: Array<GetCustomerModel>;
     pageNumber: number;
     pageSize: number;
     totalItems: number;
 }
 
-@State<CustomerStateModel>({
-    name: 'customer',
+@State<CustomersStateModel>({
+    name: 'customers',
     defaults: {
         data: [],
         pageNumber: 1,
@@ -23,20 +24,22 @@ export class CustomerStateModel {
 })
 
 @Injectable()
-export class CustomerState {
+export class CustomersState {
     constructor(
         private customerService: CustomerService,
+        private router: Router,
+        private injector: Injector
     ) {
 
     }
 
     @Selector()
-    static getData(state: CustomerStateModel) {
+    static getData(state: CustomersStateModel) {
         return state.data;
     }
 
     @Action(CreateCustomer)
-    create({ getState, patchState }: StateContext<CustomerStateModel>, { payload }: CreateCustomer) {
+    create({ getState, patchState }: StateContext<CustomersStateModel>, { payload }: CreateCustomer) {
         return this.customerService.create(payload).pipe(
             tap((result) => {   
                 console.log(result);
@@ -50,7 +53,7 @@ export class CustomerState {
     }
 
     @Action(UpdateCustomer)
-    update({ getState, setState }: StateContext<CustomerStateModel>, { payload }: UpdateCustomer) {
+    update({ getState, setState }: StateContext<CustomersStateModel>, { payload }: UpdateCustomer) {
         return this.customerService.update(payload).pipe(
             tap((result) => {   
                 console.log(result);
@@ -65,12 +68,17 @@ export class CustomerState {
                     ...state,
                     data: customerList
                 });
+
+                const ngZone = this.injector.get(NgZone);
+                ngZone.run(() => {
+                    this.router.navigateByUrl('/customer/get-list');
+                });
             }
         ));
     }
 
     @Action(DeleteCustomer)
-    delete({ getState, setState }: StateContext<CustomerStateModel>, { payload }: DeleteCustomer) {
+    delete({ getState, setState }: StateContext<CustomersStateModel>, { payload }: DeleteCustomer) {
         return this.customerService.delete(payload).pipe(
             tap(_ => {   
                 const state = getState();
@@ -84,7 +92,7 @@ export class CustomerState {
     }
 
     @Action(GetCustomer)
-    get({ getState, setState }: StateContext<CustomerStateModel>, { payload }: GetCustomer) {
+    get({ getState, setState }: StateContext<CustomersStateModel>, { payload }: GetCustomer) {
         return this.customerService.get(payload).pipe(
             tap((result) => {   
                 console.log(result);
@@ -93,8 +101,8 @@ export class CustomerState {
         ));
     }
 
-    @Action(GetAllCustomer)
-    getAll({ getState, setState }: StateContext<CustomerStateModel>, { payload }: GetAllCustomer) {
+    @Action(GetAllCustomers)
+    getAll({ getState, setState }: StateContext<CustomersStateModel>, { payload }: GetAllCustomers) {
         return this.customerService.getAll(payload).pipe(
             tap((result) => {   
                 console.log(result);

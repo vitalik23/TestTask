@@ -84,6 +84,13 @@ public class CustomerService : ICustomerService
 
         if (!string.IsNullOrWhiteSpace(model.Name) && !customer.Name.Equals(model.Name))
         {
+            var customerByName = await _customerRepository.GetCustomerByNameAsync(model.Name);
+
+            if (customerByName is not null)
+            {
+                throw new ServerException("Сustomer with that name exists!", HttpStatusCode.BadRequest);
+            }
+
             customer.Name = model.Name;
         }
 
@@ -105,5 +112,12 @@ public class CustomerService : ICustomerService
         await _customerRepository.UpdateAsync(customer);
 
         return _mapper.Map<GetCustomerModel>(customer);
+    }
+
+    public async Task<List<GetCustomerModel>> GetAllAsync()
+    {
+        var result = await _customerRepository.GetAllAsync();
+
+        return _mapper.Map<List<GetCustomerModel>>(result);
     }
 }

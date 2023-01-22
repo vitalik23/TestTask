@@ -60,7 +60,7 @@
                 <button class="remove-but" (click)="remove(element.id)">delete</button>
               </div>
               <div>
-                <button class="update-but"  (click)="update(element)">update</button>
+                <button class="update-but" [routerLink]="['/customer/update', element.id]">update</button>
               </div>
             </div>
           </td>

@@ -37,4 +37,8 @@ export class CustomerService {
     public getAll(model: FilteredAndPagedCustomerModel): Observable<PagedResponse<GetCustomerModel>>{
         return this.http.post<PagedResponse<GetCustomerModel>>(`${environment.apiUrl}/customer/get-all`, model);
     }
+
+    public getAllWithoutFilters(): Observable<Array<GetCustomerModel>>{
+        return this.http.get<Array<GetCustomerModel>>(`${environment.apiUrl}/customer/get-all`);
+    }
 }

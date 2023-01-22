@@ -57,4 +57,12 @@ public class CustomerController : ControllerBase
         var result = await _customerService.GetCustomersAsync(model);
         return Ok(result);
     }
+
+    [HttpGet]
+    [Route("get-all")]
+    public async Task<IActionResult> GetAllAsync()
+    {
+        var result = await _customerService.GetAllAsync();
+        return Ok(result);
+    }
 }
