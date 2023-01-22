@@ -1,5 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
+using System.Linq;
 using System.Text;
 using TestTask.DataAccessLayer.AppContext;
 using TestTask.DataAccessLayer.Entities;
@@ -32,11 +34,11 @@ public class CustomerRepository : BaseRepository<Customer>, ICustomerRepository
         var email = new SqlParameter("@Email", string.IsNullOrWhiteSpace(filter.Email) ? string.Empty : filter.Email);
         var phone = new SqlParameter("@Phone", string.IsNullOrWhiteSpace(filter.Phone) ? string.Empty : filter.Phone);
         var companyName = new SqlParameter("@CompanyName", string.IsNullOrWhiteSpace(filter.CompanyName) ? string.Empty : filter.CompanyName);
-        var offset = new SqlParameter("@Offset", pagination.PageNumber);
-        var pageSize = new SqlParameter("@PageSize", pagination.PageSize);
 
-        var result = await _dbSet.FromSqlRaw("GetCustomers @Name, @Email, @Phone, @CompanyName, @Offset, @PageSize",
-            name, email, phone, companyName, offset, pageSize).ToListAsync();
+        var customers = await _dbSet.FromSqlRaw("GetCustomers @Name, @Email, @Phone, @CompanyName",
+            name, email, phone, companyName).ToListAsync();
+
+        var result = customers.Skip((pagination.PageNumber - 1) * pagination.PageSize).Take(pagination.PageSize).ToList();
 
         return new PagedResponse<Customer>
         {

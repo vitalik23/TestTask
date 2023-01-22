@@ -18,9 +18,16 @@ import { UpdateCustomerComponent } from '../update-customer/update-customer.comp
 })
 export class GetListComponent implements OnInit {
 
-  @Select(CustomersState.getData) customerListObservable: Observable<GetCustomerModel[]>;
+  @Select(CustomersState.getData) customers$: Observable<GetCustomerModel[]>;
+  @Select(CustomersState.getPageNumber) pageNumber$: Observable<number>;
+  @Select(CustomersState.getPageSize) pageSize$: Observable<number>;
+  @Select(CustomersState.getTotalItems) totalItems$: Observable<number>;
 
   customers: Array<GetCustomerModel>;
+  pageNumber: number;
+  pageSize: number;
+  totalItems: number;
+
   displayedColumns: string[] = ['name', 'email', 'phone', 'companyName', 'actions'];
 
   filter: FilterCustomerModel;
@@ -31,7 +38,6 @@ export class GetListComponent implements OnInit {
     private store: Store,
     private dialog: MatDialog
   ) {
-
     this.getAllModel = new FilteredAndPagedCustomerModel();
     this.filter = new FilterCustomerModel();
   }
@@ -40,10 +46,13 @@ export class GetListComponent implements OnInit {
 
     this.store.dispatch(new GetAllCustomers(this.getAllModel));
 
-    this.customerListObservable.pipe().subscribe((data) => {
-      console.log(data);
-      this.customers = data;
-    });
+    this.customers$.pipe().subscribe((data) => { this.customers = data; });
+
+    this.pageNumber$.pipe().subscribe((data) => { this.pageNumber = data });
+
+    this.pageSize$.pipe().subscribe((data) => { this.pageSize = data });
+
+    this.totalItems$.pipe().subscribe((data) => { this.totalItems = data });
   }
 
   public create() {
@@ -68,6 +77,15 @@ export class GetListComponent implements OnInit {
     if(fieldName == "name"){
       this.getAllModel.filters.name = val;
     }
+
+    this.store.dispatch(new GetAllCustomers(this.getAllModel));
+  }
+
+  public getPaginatorData(event: any){
+    console.log(event);
+
+    this.getAllModel.pagination.pageNumber = event.pageIndex + 1;
+    this.getAllModel.pagination.pageSize = event.pageSize;
 
     this.store.dispatch(new GetAllCustomers(this.getAllModel));
   }

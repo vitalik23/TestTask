@@ -17,7 +17,7 @@ export class CustomersStateModel {
     name: 'customers',
     defaults: {
         data: [],
-        pageNumber: 1,
+        pageNumber: 0,
         pageSize: 10,
         totalItems: 0
     }
@@ -38,6 +38,21 @@ export class CustomersState {
         return state.data;
     }
 
+    @Selector()
+    static getPageNumber(state: CustomersStateModel) {
+        return state.pageNumber;
+    }
+
+    @Selector()
+    static getPageSize(state: CustomersStateModel) {
+        return state.pageSize;
+    }
+
+    @Selector()
+    static getTotalItems(state: CustomersStateModel) {
+        return state.totalItems;
+    }
+
     @Action(CreateCustomer)
     create({ getState, patchState }: StateContext<CustomersStateModel>, { payload }: CreateCustomer) {
         return this.customerService.create(payload).pipe(
@@ -45,7 +60,8 @@ export class CustomersState {
                 console.log(result);
                 const state = getState();
                 patchState({
-                    data: [...state.data, result]
+                    data: [...state.data, result],
+                    totalItems: state.totalItems + 1
                 });
             }
             
@@ -87,16 +103,6 @@ export class CustomersState {
                     (item) => item.id != payload
                 );
                 setState({ ...state, data: categoryList });
-            }
-        ));
-    }
-
-    @Action(GetCustomer)
-    get({ getState, setState }: StateContext<CustomersStateModel>, { payload }: GetCustomer) {
-        return this.customerService.get(payload).pipe(
-            tap((result) => {   
-                console.log(result);
-
             }
         ));
     }
