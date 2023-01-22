@@ -2,9 +2,10 @@
 <div class="main-container">
     <div class="header-container">
         <div class="logo" routerLink=".">Logo</div>
-        <div class="auth-button">
-            <button class="sign-in" routerLink="account/sign-in">Sign in</button>
-            <button class="sign-up" routerLink="account/sign-up">Sign up</button>
+        <div class="auth-buttons" >
+            <button class="auth-action-button" *ngIf="!isAuthorized" routerLink="account/sign-in">Sign in</button>
+            <button class="auth-action-button" *ngIf="!isAuthorized" routerLink="account/sign-up">Sign up</button>
+            <button class="auth-action-button" *ngIf="isAuthorized" (click)="logOut()">Log out</button>
         </div>
     </div>
     <div class="body-container">

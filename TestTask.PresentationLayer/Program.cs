@@ -1,5 +1,6 @@
 using TestTask.Shared.Options;
 using TestTask.Shared.Constants;
+using TestTask.PresentationLayer.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,8 @@ services.AddCors();
 services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

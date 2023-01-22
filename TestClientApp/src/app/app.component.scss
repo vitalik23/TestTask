@@ -17,13 +17,12 @@
             border-radius: 15px;
         }
 
-        .auth-button{
+        .auth-buttons{
             display: flex;
             gap: 15px;
             margin-bottom: 10px;
 
-            .sign-in, 
-            .sign-up{
+            .auth-action-button{
                 background: #00C2A8;
                 color: #ffffff;
                 width: 80px;

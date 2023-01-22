@@ -56,7 +56,12 @@ public class AccountService : IAccountService
 
         if (existingUser is not null)
         {
-            throw new ServerException("User already exist!", HttpStatusCode.InternalServerError);
+            throw new ServerException("User already exist!", HttpStatusCode.BadRequest);
+        }
+
+        if (!model.Password.Equals(model.ConfirmPassword))
+        {
+            throw new ServerException("Passwords do not match!", HttpStatusCode.BadRequest);
         }
 
         var user = _mapper.Map<User>(model);

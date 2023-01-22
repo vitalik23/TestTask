@@ -7,6 +7,7 @@ import { Injectable } from "@angular/core";
 import { throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { AccountService } from "../services/account.service";
+import { AlertifyService } from "../services/alertify.service";
 
 @Injectable({
     providedIn: "root"
@@ -14,7 +15,8 @@ import { AccountService } from "../services/account.service";
 export class ErrorInterceptorService implements HttpInterceptor {
 
     constructor(
-        private accountService: AccountService
+        private accountService: AccountService,
+        private alertService: AlertifyService
     ) {}
 
     accessToken = this.accountService.getAccessToken();
@@ -26,10 +28,33 @@ export class ErrorInterceptorService implements HttpInterceptor {
                     window.location.href="account/sign-in"
                 }
 
-                //TODO: logic is needed
+                if(error.status == 404){
+                    console.log("404");
+                    var message = this.handleException(error);
+                    this.alertService.error(message);
+                }
+
+                if(error.status == 400){
+                    var message = this.handleException(error);
+                    this.alertService.error(message);
+                }
 
                 return throwError(error);
             })
         );
+    }
+
+    private handleException(error: any){
+        if(!error.error){
+            return "Something went wrong!"
+        }
+
+        var errorMessage = "";
+
+        error.error.forEach((item: string) => {
+            errorMessage += `\n${item}`
+        });
+
+        return errorMessage;
     }
 }

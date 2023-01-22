@@ -1,6 +1,6 @@
 import { Injectable, Injector, NgZone } from "@angular/core";
 import { Route, Router } from "@angular/router";
-import { Action, State, StateContext } from "@ngxs/store";
+import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { CookieService } from "ngx-cookie-service";
 import { tap } from "rxjs";
 import { AccountService } from "src/app/services/account.service";
@@ -35,6 +35,11 @@ export class AuthState {
         setState({
             isAuthenticated: (token && !this.accountService.isExpiredToken(token)) as boolean
         });
+    }
+
+    @Selector()
+    static isAuthenticated(state: AuthStateModel) {
+        return state.isAuthenticated;
     }
 
     @Action(SignIn)

@@ -108,7 +108,9 @@ export class CustomerState {
                 setState({
                     ...state,
                     data: result.data,
-                    // pageNumber: result.pageNumber,
+                    pageNumber: result.pageNumber,
+                    pageSize: result.pageSize,
+                    totalItems: result.totalItems
                 });
             }
         ));

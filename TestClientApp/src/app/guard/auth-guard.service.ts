@@ -16,14 +16,12 @@ export class AuthGuardService implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
         const token = this.accountService.getAccessToken();
-
-        const isAuthenticated = token && !this.accountService.isExpiredToken(token);
-
-        if (isAuthenticated) {
-            return true;
+        
+        if (!token && this.accountService.isExpiredToken(token)) {
+            location.href = "account/sign-in";
+            return false;
         }
 
-        this.store.dispatch(new SignOut());
-        return false;
+        return true;
     }
 }

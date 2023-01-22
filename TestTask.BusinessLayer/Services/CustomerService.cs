@@ -4,8 +4,8 @@ using TestTask.BusinessLayer.Services.Interfaces;
 using TestTask.DataAccessLayer.Entities;
 using TestTask.DataAccessLayer.Repositories.Interfaces;
 using TestTask.Shared.Exceptions;
-using TestTask.DataAccessLayer.Models.Customers;
 using TestTask.DataAccessLayer.Models.Pagination;
+using System.Net;
 
 namespace TestTask.BusinessLayer.Services;
 
@@ -29,7 +29,7 @@ public class CustomerService : ICustomerService
 
         if (customer is not null)
         {
-            throw new ServerException("Сustomer with that name exists!");
+            throw new ServerException("Сustomer with that name exists!", HttpStatusCode.BadRequest);
         }
 
         var entity = _mapper.Map<Customer>(model);
@@ -44,7 +44,7 @@ public class CustomerService : ICustomerService
 
         if (customer is null)
         {
-            throw new ServerException("Customer does not exist!");
+            throw new ServerException("Customer does not exist!", HttpStatusCode.NotFound);
         }
 
         await _customerRepository.DeleteAsync(customer);
@@ -79,7 +79,7 @@ public class CustomerService : ICustomerService
 
         if (customer is null)
         {
-            throw new ServerException("Customer does not exist!");
+            throw new ServerException("Customer does not exist!", HttpStatusCode.NotFound);
         }
 
         if (!string.IsNullOrWhiteSpace(model.Name) && !customer.Name.Equals(model.Name))
