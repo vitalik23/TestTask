@@ -1,0 +1,35 @@
+.create-customer-container{
+    .create-form{
+        form{
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            .form-item{
+                .form-danger{
+                    color: red;
+                }
+            }
+        }
+    }
+
+    .action-buttons{
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+
+        button{
+            background: #00C2A8;
+            color: #fff;
+            font-size: 14px;
+            border: none;
+            border-radius: 20px;
+            width: 80px;
+            height: 30px;
+
+            &:hover{
+                cursor: pointer;
+            }
+        }
+    }
+}

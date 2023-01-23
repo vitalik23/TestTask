@@ -1,0 +1,69 @@
+<div class="create-customer-container">
+    <h1>Create customer</h1>
+
+    <div class="create-form">
+        <form [formGroup]="createForm">
+
+            <div class="form-item">
+                <input type="text" formControlName="name" placeholder="Name">
+
+                <div *ngIf="createForm.get('name')?.invalid && (createForm.get('name')?.dirty || createForm.get('name')?.touched)" class="form-danger">
+                    <div *ngIf="createForm.get('name')?.errors?.['required']">
+                        Name is required.
+                    </div>
+
+                    <div *ngIf="createForm.get('name')?.errors?.['duplicate']">
+                        Name already exists.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-item">
+                <input type="email" formControlName="email" placeholder="Email">
+
+                <div *ngIf="createForm.get('email')?.invalid && (createForm.get('email')?.dirty || createForm.get('email')?.touched)" class="form-danger">
+                    <div *ngIf="createForm.get('email')?.errors?.['required']">
+                        Email is required.
+                    </div>
+
+                    <div *ngIf="createForm.get('email')?.errors?.['email']">
+                        Email is invalid.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-item">
+                <input type="tell" formControlName="phone" placeholder="Phone">
+
+                <div *ngIf="createForm.get('phone')?.invalid && (createForm.get('phone')?.dirty || createForm.get('phone')?.touched)" class="form-danger">
+                    <div *ngIf="createForm.get('phone')?.errors?.['required']">
+                        Phone is required.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-item">
+                <input type="text" formControlName="companyName" placeholder="Company name">
+
+                <div *ngIf="createForm.get('companyName')?.invalid && (createForm.get('companyName')?.dirty || createForm.get('companyName')?.touched)" class="form-danger">
+                    <div *ngIf="createForm.get('companyName')?.errors?.['required']">
+                        Company name is required.
+                    </div>
+
+                    <div *ngIf="createForm.get('companyName')?.invalid">
+                        Length is not allowed.
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="action-buttons">
+        <button (click)="create()">Create</button>
+        <button (click)="close()">Close</button>
+    </div>
+</div>
+
+<style>
+
+</style>

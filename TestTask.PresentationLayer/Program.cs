@@ -1,13 +1,24 @@
+using TestTask.Shared.Options;
+using TestTask.Shared.Constants;
+using TestTask.PresentationLayer.Middlewares;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+var services = builder.Services;
+TestTask.BusinessLayer.StartupExtention.BusinessLogicInitializer(services, builder.Configuration);
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+services.Configure<JwtConnectionOptions>(builder.Configuration.GetSection(Constants.AppSettings.JwtConfiguration));
+
+services.AddControllers();
+
+services.AddEndpointsApiExplorer();
+
+services.AddCors();
+services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -18,6 +29,15 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors(builder =>
+{
+    builder.WithOrigins("http://localhost:4200")
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials();
+});
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

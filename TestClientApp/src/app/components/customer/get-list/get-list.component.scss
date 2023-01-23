@@ -1,0 +1,52 @@
+.get-list-container {
+
+  .create-customer{
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+
+  .example-container {
+    .example-table-container {
+      overflow-y: auto;
+      table {
+        width: 100%;
+
+        th{
+          .filter-field {
+            display: flex;
+            gap: 5px;
+            input{
+              height: 20px;
+              width: calc(100% - 20px);
+            }
+          }
+        }
+
+        .actions{
+
+          display: flex;
+          justify-content: space-around;
+          gap: 10px;
+
+          .remove-but{
+            background: red;
+            border: none;
+            width: 60px;
+            height: 30px;
+            color: #fff;
+            border-radius: 15px;
+          }
+
+          .update-but{
+            background: blue;
+            border: none;
+            width: 60px;
+            height: 30px;
+            color: #fff;
+            border-radius: 15px;
+          }
+        }
+      }
+    }
+  }
+}

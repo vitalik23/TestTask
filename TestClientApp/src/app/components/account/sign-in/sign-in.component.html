@@ -1,0 +1,22 @@
+<div class="sign-in-container">
+
+    <h1>Sign in to application</h1>
+
+    <form #form="ngForm">
+
+
+        <div class="item-form">
+            <input type="email" name="email" #email="ngModel" [(ngModel)]="loginModel.email" placeholder="Email">
+        </div>
+
+        <div class="item-form">
+            <input type="password" name="password" #password="ngModel" [(ngModel)]="loginModel.password"
+                placeholder="Password">
+        </div>
+
+        <div class="item-form">
+            <button class="signin-button" (click)="signIn()">Sign in</button>
+        </div>
+
+    </form>
+</div>

@@ -1,0 +1,88 @@
+<div class="get-list-container">
+  <div class="create-customer">
+    <button mat-raised-button color="primary" (click)="create()">Add Customer</button>
+  </div>
+
+  <div class="example-container mat-elevation-z8">
+
+    <div class="example-table-container">
+      <table mat-table [dataSource]="customers" class="mat-elevation-z8">
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef > 
+            <div>Name</div>
+            <div class="filter-field">
+              <input type="text" (input)="filtration($event.target, 'name')"/>
+              <img src="assets/img/sort-icon.png" width="20px" sortable="name" (sort)="sorting($event)"/>
+            </div>
+          </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef> 
+            <div>Email</div>
+            <div class="filter-field">
+              <input type="email" (input)="filtration($event.target, 'email')"/>
+              <img src="assets/img/sort-icon.png" width="20px"  sortable="name" (sort)="sorting($event)"/>
+            </div>
+          </th>
+          <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="phone">
+          <th mat-header-cell *matHeaderCellDef> 
+            <div>Phone</div>
+            <div class="filter-field">
+              <input type="tell" (input)="filtration($event.target, 'phone')"/>
+              <img src="assets/img/sort-icon.png" width="20px"  sortable="name" (sort)="sorting($event)"/>
+            </div>
+          </th>
+          <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="companyName">
+          <th mat-header-cell *matHeaderCellDef> 
+            <div>Company name</div>
+            <div class="filter-field">
+              <input type="text" (input)="filtration($event.target, 'companyName')"/>
+              <img src="assets/img/sort-icon.png" width="20px"  sortable="name" (sort)="sorting($event)"/>
+            </div>
+          </th>
+          <td mat-cell *matCellDef="let element"> {{element.companyName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Actions </th>
+          <td mat-cell *matCellDef="let element" >
+            <div class="actions">
+              <div>
+                <button class="remove-but" (click)="remove(element.id)">delete</button>
+              </div>
+              <div>
+                <button class="update-but" [routerLink]="['/customer/update', element.id]">update</button>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+
+
+    <mat-paginator 
+      [length]="totalItems" 
+      [pageIndex]="pageNumber-1"
+      [pageSize]="pageSize" 
+      [pageSizeOptions]="[5, 10, 25, 100]" 
+      (page)="getPaginatorData($event)"
+      aria-label="Select page">
+    </mat-paginator>
+  </div>
+</div>
