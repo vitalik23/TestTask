@@ -30,19 +30,23 @@ public class CustomerRepository : BaseRepository<Customer>, ICustomerRepository
     public async Task<PagedResponse<Customer>> GetFilteredAndPagedAsync(CustomerFilterModel filter, PaginationFilterModel pagination)
     {
 
+        string defaultOrderBy = "Id";
+
         var name = new SqlParameter("@Name", string.IsNullOrWhiteSpace(filter.Name) ? string.Empty : filter.Name);
         var email = new SqlParameter("@Email", string.IsNullOrWhiteSpace(filter.Email) ? string.Empty : filter.Email);
         var phone = new SqlParameter("@Phone", string.IsNullOrWhiteSpace(filter.Phone) ? string.Empty : filter.Phone);
         var companyName = new SqlParameter("@CompanyName", string.IsNullOrWhiteSpace(filter.CompanyName) ? string.Empty : filter.CompanyName);
+        var orderBy = new SqlParameter("@OrderBy", string.IsNullOrWhiteSpace(filter.OrderBy) ? defaultOrderBy : filter.OrderBy);
+        var orderByAsc = new SqlParameter("@OrderByAsc", filter.IsAsc ? "ASC" : "DESC");
+        var pageNumber = new SqlParameter("@PageNumber", pagination.PageNumber);
+        var pageSize = new SqlParameter("@PageSize", pagination.PageSize);
 
-        var customers = await _dbSet.FromSqlRaw("GetCustomers @Name, @Email, @Phone, @CompanyName",
-            name, email, phone, companyName).ToListAsync();
-
-        var result = customers.Skip((pagination.PageNumber - 1) * pagination.PageSize).Take(pagination.PageSize).ToList();
+        var customers = await _dbSet.FromSqlRaw("GetCustomers @Name, @Email, @Phone, @CompanyName, @OrderBy, @OrderByAsc, @PageNumber, @PageSize",
+            name, email, phone, companyName, orderBy, orderByAsc, pageNumber, pageSize).ToListAsync();
 
         return new PagedResponse<Customer>
         {
-            Data = result
+            Data = customers
         };
     }
 }

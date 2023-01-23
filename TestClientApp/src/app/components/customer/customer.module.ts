@@ -14,13 +14,15 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { GetCustomerState } from './store/state/get-customer.state';
 import { GetAllCustomersState } from './store/state/get-all.state';
+import { SortableHeaderDirective } from 'src/app/directives/sortable-header.directive';
 
 
 @NgModule({
   declarations: [
     GetListComponent,
     CreateCustomerComponent,
-    UpdateCustomerComponent
+    UpdateCustomerComponent,
+    SortableHeaderDirective
   ],
   imports: [
     CommonModule,
@@ -32,6 +34,9 @@ import { GetAllCustomersState } from './store/state/get-all.state';
     MatButtonModule,
     MatDialogModule,
     MatPaginatorModule
+  ],
+  exports: [
+    SortableHeaderDirective
   ]
 })
 export class CustomerModule { }

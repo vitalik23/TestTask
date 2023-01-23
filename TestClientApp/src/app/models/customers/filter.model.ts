@@ -3,4 +3,6 @@ export class FilterCustomerModel{
     email: string;
     phone: string;
     companyName: string;
+    orderBy: string;
+    isAsc: boolean;
 }

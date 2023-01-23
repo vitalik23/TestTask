@@ -78,6 +78,28 @@ export class GetListComponent implements OnInit {
       this.getAllModel.filters.name = val;
     }
 
+    if(fieldName == "email"){
+      this.getAllModel.filters.email = val;
+    }
+
+    if(fieldName == "phone"){
+      this.getAllModel.filters.phone = val;
+    }
+
+    if(fieldName == "companyName"){
+      this.getAllModel.filters.companyName = val;
+    }
+
+    this.store.dispatch(new GetAllCustomers(this.getAllModel));
+  }
+
+  public sorting(event: any){
+
+    console.log(event);
+
+    this.getAllModel.filters.orderBy = event.column;
+    this.getAllModel.filters.isAsc = event.direction == 'asc' ? true : event.direction == '' ? true : false;
+
     this.store.dispatch(new GetAllCustomers(this.getAllModel));
   }
 
