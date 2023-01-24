@@ -19,8 +19,4 @@
     <ProjectReference Include="..\TestTask.Shared\TestTask.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Programmability\StoredProcedures\" />
-  </ItemGroup>
-
 </Project>
