@@ -5,9 +5,12 @@ using TestTask.PresentationLayer.Middlewares;
 var builder = WebApplication.CreateBuilder(args);
 
 var services = builder.Services;
-TestTask.BusinessLayer.StartupExtention.BusinessLogicInitializer(services, builder.Configuration);
+var configuration = builder.Configuration;
 
-services.Configure<JwtConnectionOptions>(builder.Configuration.GetSection(Constants.AppSettings.JwtConfiguration));
+services.Configure<JwtConnectionOptions>(configuration.GetSection(Constants.AppSettings.JwtConfiguration));
+services.Configure<ConnectionStrings>(configuration.GetSection(Constants.AppSettings.ConnectionStrings));
+
+TestTask.BusinessLayer.StartupExtention.BusinessLogicInitializer(services, configuration);
 
 services.AddControllers();
 

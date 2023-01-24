@@ -9,6 +9,8 @@ public static class DefaultDataInitialization
 {
     public static async Task InitializationAsync(this IServiceCollection service)
     {
+        CreateIfNotExist(service);
+
         var userManager = service.BuildServiceProvider().GetRequiredService<UserManager<User>>();
 
         string userEmail = "test@gmail.com";
@@ -32,5 +34,11 @@ public static class DefaultDataInitialization
                 throw new ServerException("User is not registered!");
             }
         }
+    }
+
+    private static void CreateIfNotExist(IServiceCollection service)
+    {
+        var storeProcedures = service.BuildServiceProvider().GetRequiredService<CreateStoreProcedures>();
+        storeProcedures.CreateIfNotExistStoreProcedures();
     }
 }
