@@ -6,5 +6,6 @@ public static partial class Constants
     {
         public const string JwtConfiguration = "JwtConfiguration";
         public const string AdminCredentials = "AdminCredentials";
+        public const string ConnectionStrings = "ConnectionStrings";
     }
 }

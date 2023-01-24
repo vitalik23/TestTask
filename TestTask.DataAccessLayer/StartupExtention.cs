@@ -32,6 +32,7 @@ public static class StartupExtention
             .AddTokenProvider<DataProtectorTokenProvider<User>>(TokenOptions.DefaultProvider);
 
         service.AddTransient<ICustomerRepository, CustomerRepository>();
+        service.AddTransient<CreateStoreProcedures>();
 
         service.InitializationAsync().Wait();
     }
